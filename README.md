@@ -1,6 +1,6 @@
 # PangCrypt-C
 
-PangCrypt-C is an implementation of the PangYa transport cryptography. It is a C# port of the Go pangbox pangcrypt library.
+PangCrypt-C is an implementation of the PangYa transport cryptography. It is a C++ port of the Go pangbox pangcrypt library.
 
 ## MiniLzo
 
