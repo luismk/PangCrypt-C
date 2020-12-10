@@ -463,8 +463,7 @@ vector<unsigned char> MiniLzo::Compress(vector<unsigned char> input)
 {
 	auto out = vector<unsigned char>(input.size() + input.size() / 16 + 64 + 3);
 	unsigned int outLen =0;
-	auto dict = vector<unsigned short>(32768);
-	Lzo1X1Compress(input, static_cast<unsigned int>(input.size()), out, outLen, dict);
-	out[outLen];
+	Lzo1X1Compress(input, static_cast<unsigned int>(input.size()), out, outLen, vector<unsigned short>(32768));
+        Utils::Reside(out, outLen);
 	return out;
 }
