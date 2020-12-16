@@ -16,7 +16,8 @@ vector<int> MultiplyDeBruijnBitPosition = { 0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 
 
 unsigned int MiniLzo::LzoBitOpsCtz32(signed int v)
 {
-	return MultiplyDeBruijnBitPosition[static_cast<signed int>((v & -v) * 0x077CB531U) >> 27];
+	auto result = ((v & -v) * 0x077CB531U);
+	return MultiplyDeBruijnBitPosition[static_cast<unsigned int>(result >> 27)];
 }
 
 
@@ -449,21 +450,14 @@ vector<unsigned char> MiniLzo::Lzo1XDecompress(vector<unsigned char> in)
 
 vector<unsigned char> MiniLzo::Decompress(vector<unsigned char> input)
 {
-	try
-	{
-		return Lzo1XDecompress(input);
-	}
-	catch (const exception& ex)
-	{
-
-	}
+	return Lzo1XDecompress(input);
 }
 
 vector<unsigned char> MiniLzo::Compress(vector<unsigned char> input)
 {
 	auto out = vector<unsigned char>(input.size() + input.size() / 16 + 64 + 3);
-	unsigned int outLen =0;
-	Lzo1X1Compress(input, static_cast<unsigned int>(input.size()), out, outLen, vector<unsigned short>(32768));
-        Utils::Resize(out, outLen);
+	unsigned int outLen = 0;
+	Lzo1X1Compress(input, (int)input.size(), out, outLen, vector<unsigned short>(32768));
+	Utils::Resize(out, outLen);
 	return out;
 }
