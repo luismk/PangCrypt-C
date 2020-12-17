@@ -34,7 +34,7 @@ public:
 	///     Thrown if an invalid key is specified.
 	/// </exception>
 
-	static vector<unsigned char> Encrypt(vector<unsigned char> source, int key, unsigned char salt);
+	static vector<unsigned char> Encrypt(vector<unsigned char> source, int key, int salt =0);
 
 	static UINT32 Deserialize(UINT32 deserialize);
 };

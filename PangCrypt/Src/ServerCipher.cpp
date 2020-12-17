@@ -1,5 +1,5 @@
 #include "ServerCipher.h"
-vector<unsigned char> ServerCipher::Encrypt(vector<unsigned char> source, int key, unsigned char salt)
+vector<unsigned char> ServerCipher::Encrypt(vector<unsigned char> source, int key, int salt)
 {
 	if (key >= 0x10)
 	{

@@ -26,12 +26,12 @@ vector<unsigned char> ClientCipher::Decrypt(std::vector<unsigned char> source, i
 	return output;
 }
 
-vector<unsigned char> ClientCipher::Encrypt(vector<unsigned char> source, int key, unsigned char salt)
+vector<unsigned char> ClientCipher::Encrypt(vector<unsigned char> source, int key, int salt)
 {
 
 	if (key >= 0x10)
 	{
-		throw exception("key", (L"Key too large ({0} >= 0x10)", key));
+		throw exception("key", ("Key too large ({0} >= 0x10)", key));
 	}
 
 	auto oracleIndex = (key << 8) + salt;
@@ -62,6 +62,13 @@ UINT32 ClientCipher::Deserialize(UINT32 deserialize)
 	{
 		pval[i % 4] ^= CryptoOracle::CryptTableDeserialize[i];
 	}
-	return result;
+	if (result != deserialize)
+	{
+		return result;
+	}
+	else
+	{
+		throw exception("Falied To Deserialize Data !");
+	}
 }
 

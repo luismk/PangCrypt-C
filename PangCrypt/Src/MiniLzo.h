@@ -29,11 +29,7 @@
 
  //#endregion
 #pragma once
-#include <vector>
-#include <stdio.h>
-#include <algorithm>
-using namespace std;
-
+#include "Utils.h"
 class MiniLzo final
 {
 
@@ -58,7 +54,7 @@ private:
 
 	static unsigned int Lzo1X1CompressCore(vector<unsigned char>& in, unsigned int inIndex, unsigned int inLen, vector<unsigned char>& out, unsigned int outIndex, unsigned int& outLen, unsigned int ti, vector<unsigned short>& dict);
 
-	static void Lzo1X1Compress(vector<unsigned char>& in, unsigned int inLen, vector<unsigned char>& out, unsigned int& outLen, vector<unsigned short>& dict);
+	static void Lzo1X1Compress(vector<unsigned char>& in, unsigned int inLen, vector<unsigned char>& out, unsigned int& outLen, vector<unsigned short> dict);
 
 	//		#endregion
 

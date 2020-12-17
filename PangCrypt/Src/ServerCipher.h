@@ -1,9 +1,7 @@
 #pragma once
-#include <vector>
 #include "CryptoOracle.h"
 #include "Utils.h"
 #include "MiniLzo.h"
-using namespace std;
 /// <summary>
 ///     Cipher used for packets sent by the server. PangYa clients would
 ///     decrypt incoming packets using this cipher and PangYa servers would
@@ -33,5 +31,5 @@ public:
 	/// <exception cref="ArgumentOutOfRangeException">
 	///     Thrown if an invalid key is specified.
 	/// </exception>
-	static vector<unsigned char> Encrypt(vector<unsigned char> source, int key, unsigned char salt);
+	static vector<unsigned char> Encrypt(vector<unsigned char> source, int key, int salt = 0);
 };

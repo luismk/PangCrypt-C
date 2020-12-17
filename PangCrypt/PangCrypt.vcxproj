@@ -27,7 +27,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -151,11 +151,13 @@
     <ClInclude Include="Src\CryptoOracle.h" />
     <ClInclude Include="Src\ClientCipher.h" />
     <ClInclude Include="Src\MiniLzo.h" />
+    <ClInclude Include="Src\Pang.h" />
     <ClInclude Include="Src\ServerCipher.h" />
     <ClInclude Include="Src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\MiniLzo.cpp" />
+    <ClCompile Include="Src\Pang.cpp" />
     <ClCompile Include="Src\ServerCipher.cpp" />
     <ClCompile Include="Src\ClientCipher.cpp" />
     <ClCompile Include="Src\CryptoOracle.cpp" />
