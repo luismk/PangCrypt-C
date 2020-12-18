@@ -1,6 +1,7 @@
 #include "DeserializeCipher.h"
 #include <exception>
 
+//code sent by: Hsreina
 UINT32 DeserializeCipher::Decrypt(UINT32 pangya_build_date)
 {
 	UINT32 result = pangya_build_date;
@@ -20,6 +21,7 @@ UINT32 DeserializeCipher::Decrypt(UINT32 pangya_build_date)
 	}
 }
 
+//code sent by: Acrisio SuperSS Dev
 UINT32 DeserializeCipher::Encrypt(UINT32 pangya_build_date)
 {
 
