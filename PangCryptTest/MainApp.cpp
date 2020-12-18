@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include <ClientCipher.cpp>
 #include <ServerCipher.cpp>
+#include <DeserializeCipher.cpp>
 #include <iostream>
 #include <chrono>
-using namespace std;
 int main(int argc, char* argv[])
 {
 
 	try
 	{
+		
+
 		time_t     now = time(0);
 		struct tm  tstruct;
 		char       time[50];
@@ -20,6 +22,17 @@ int main(int argc, char* argv[])
 
 		cout << "Start PangCrypt Test: " << time << endl;
 		cout << "" << "\n" << endl;
+
+		auto test = DeserializeCipher::Encrypt(2014020600);
+		if (test != 626763146)
+		{
+			throw exception("Falied To Deserialize Encrypted Data");
+		}
+		 test = DeserializeCipher::Decrypt(test);
+		if (test != 2014020600)
+		{
+			throw exception("Falied To Deserialize Encrypted Data");
+		}
 		for (int i = 1; i < 16; i++)
 		{
 			vector<unsigned char> test = { static_cast<unsigned char>(i), 0x00, 0x06, 0x00, 0x6C, 0x75, 0x69, 0x73, 0x6D, 0x6B, static_cast<unsigned char>(i), static_cast<unsigned char>(rand()) };

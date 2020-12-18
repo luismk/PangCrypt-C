@@ -1,5 +1,5 @@
 #include "Utils.h"
-#include <sstream>
+
 bool Utils::CopyTo(vector<unsigned char> sourceArray, int sourceIndex, vector<unsigned char>& destinationArray, int destinationIndex, int length)
 {
 	for (int i = 0; i < length; i++)
@@ -11,7 +11,7 @@ bool Utils::CopyTo(vector<unsigned char> sourceArray, int sourceIndex, vector<un
 	return 1;
 }
 
-unsigned char* Utils::ConvertVectorToChar(vector<unsigned char>& source)
+unsigned char* Utils::ConvertVectorToChar(vector<unsigned char> source)
 {
 	auto buffer = new unsigned char[source.size()];
 	copy(source.begin(), source.end(), buffer);
@@ -21,26 +21,19 @@ unsigned char* Utils::ConvertVectorToChar(vector<unsigned char>& source)
 bool Utils::Resize(vector<unsigned char>& destinationArray, int length)
 {
 	auto source = vector<unsigned char>(length);
-	try
+	int i;
+	int realsize = destinationArray.size() - 1;
+	for (i = 0; i <= realsize; i++)
 	{
-		int i;
-		int realsize = destinationArray.size() - 1;
-		for (i = 0; i <= realsize; i++)
+		if ((length - 1) == i)
 		{
-			if ((length - 1) == i)
-			{
-				source[i] = destinationArray[i];
-				break;
-			}
 			source[i] = destinationArray[i];
+			break;
 		}
-		destinationArray = source;
-		return 1;
+		source[i] = destinationArray[i];
 	}
-	catch (const std::exception&)
-	{
-			
-	}
+	destinationArray = source;
+	return 1;
 }
 
 string Utils::ShowPacketInHex(unsigned char* packet_buffer, int size)
@@ -74,14 +67,3 @@ string Utils::ShowPacketInHex(vector<unsigned char> packet_buffer)
 	return returndata;
 }
 
-
-bool Utils::CopyString(unsigned char* sourceArray, int sourceIndex, unsigned char*& destinationArray, int destinationIndex, int length)
-{
-	for (int i = 0; i < length; i++)
-	{
-		destinationArray[sourceIndex] = sourceArray[sourceIndex];
-		sourceIndex++;
-		destinationIndex++;
-	}
-	return 1;
-}

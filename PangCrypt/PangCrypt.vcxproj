@@ -24,10 +24,11 @@
     <ProjectGuid>{55050fe4-9ffe-48b4-b436-9b2da090ee80}</ProjectGuid>
     <RootNamespace>PangCrypt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Pang</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -72,6 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Debug</OutDir>
+    <TargetName>Pang</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -150,12 +153,13 @@
   <ItemGroup>
     <ClInclude Include="Src\CryptoOracle.h" />
     <ClInclude Include="Src\ClientCipher.h" />
+    <ClInclude Include="Src\DeserializeCipher.h" />
     <ClInclude Include="Src\MiniLzo.h" />
-    <ClInclude Include="Src\Pang.h" />
     <ClInclude Include="Src\ServerCipher.h" />
     <ClInclude Include="Src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\DeserializeCipher.cpp" />
     <ClCompile Include="Src\MiniLzo.cpp" />
     <ClCompile Include="Src\Pang.cpp" />
     <ClCompile Include="Src\ServerCipher.cpp" />

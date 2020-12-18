@@ -34,7 +34,7 @@
     <ClInclude Include="Src\ServerCipher.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Pang.h">
+    <ClInclude Include="Src\DeserializeCipher.h">
       <Filter>Src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -55,6 +55,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Pang.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\DeserializeCipher.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
