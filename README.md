@@ -14,6 +14,8 @@ This repository is a WIP.
 
   - [x] Implement basic encoding and decoding routines.
   - [x] Implement Console for testing.
+  - [x] Methods imported for use in other applications.
+  - [x] Works with Reina's Server.
   - [ ] Re-implement LZO from scratch, with Streams.
   - [ ] Rewrite encoding/decoding to use Streams.
 
