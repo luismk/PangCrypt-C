@@ -26,8 +26,8 @@ DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned ch
 	return 1;
 }
 
-// Encrypt Pangya client packets
-DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
+// Encrypt Pangya client packets, not used: packetid
+DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key, char packetid)
 {
 	auto len = size;
 	auto packet = vector<unsigned char>(buffin, buffin + len);
