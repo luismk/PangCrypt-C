@@ -20,11 +20,12 @@ https://github.com/luismk/PangCrypt-C/releases
 
 The Pang.dll shares some functions with the server you will be able to understand.
     
-     int pangya_client_decrypt (char * buffin, int size, char ** buffout, int * buffoutSize, char key);//decrypt packet of client
-     int pangya_server_encrypt (char * buffin, size int, char ** buffout, int * buffoutSize, char key);//encrypt server packets that are sent to for the client
-     int pangya_client_encrypt (char * buffin, int size, char ** buffout, int * buffoutSize, char key, char packetid);//encrypt client packets that are sent to for the server
-     int pangya_server_decrypt (char * buffin, internal size, char ** buffout, int * buffoutSize, char key);//decrypt packets of server
+     int pangya_client_decrypt (unsigned char *buffin, int size, unsigned char **buffout, int * buffoutSize, unsigned char key);//decrypt packet of client
+     int pangya_server_encrypt (unsigned char *buffin, size int, unsigned char **buffout, int * buffoutSize, unsigned char key);//encrypt server packets that are sent to for the client
+     int pangya_client_encrypt (unsigned char *buffin, int size, unsigned char **buffout, int * buffoutSize, unsigned char key, unsigned char packetid);//encrypt client packets that are sent to for the server
+     int pangya_server_decrypt (unsigned char *buffin, internal size, unsigned char ** buffout, int * buffoutSize, char key);//decrypt packets of server
      UInt32 pangya_deserialize (UInt32 desserialize);//decrypt build_date by client
+     UInt32 pangya_encrypt_deserialize (UInt32 desserialize);//encrypt build_date by client
      void pangya_free (char ** buffout);//clear buffer
 
 ### ShowCase
