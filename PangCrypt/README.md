@@ -2,7 +2,7 @@
 
 ### About PangCrypt
 
-this is a C ++ version based on Csharp/GO
+this is a C++ version based on Csharp/GO
 parts of the codes are not authorized by the owner,
 all credits were highlighted within the codes
 I thought of creating it not to say "mine" but to raise my level as a programmer, maybe in the future other programmers will try to do better
