@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <time.h>
 using namespace std;
 class Utils
 {
@@ -31,7 +32,17 @@ public:
 	/// <returns>true = sucess</returns>
 	static bool Resize(vector<unsigned char>& destinationArray, int length);
 
+	static string PacketInHex(unsigned char* packet_buffer, int size);
+
 	static string ShowPacketInHex(unsigned char* packet_buffer, int size);
 
-	static string ShowPacketInHex(vector<unsigned char> packet_buffer);
+	static string ShowPacketInHex(vector<unsigned char> packet_buffer,  int size);
+
+	static void PrintLog(int typelog,unsigned char* packet, unsigned char key, int size);
+private:
+	static unsigned char hexval(unsigned char c);
+	static string hex2ascii(const string& in);
+	static void ConsolePrint(const char* _Format);
+	static string GetDateTime();
+	static string GetTime();
 };

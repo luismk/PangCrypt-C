@@ -51,13 +51,13 @@ int main(int argc, char* argv[])
 			{
 				throw exception("Falied To Client Server Data");
 			}
-			auto result0 = Utils::ShowPacketInHex(client_encrypted);
+			auto result0 = Utils::ShowPacketInHex(client_encrypted, client_encrypted.size());
 
-			auto result1 = Utils::ShowPacketInHex(client_decrypted);
+			auto result1 = Utils::ShowPacketInHex(client_decrypted, client_decrypted.size());
 
-			auto result2 = Utils::ShowPacketInHex(server_encrypted);
+			auto result2 = Utils::ShowPacketInHex(server_encrypted, server_encrypted.size());
 
-			auto result3 = Utils::ShowPacketInHex(server_decrypted);
+			auto result3 = Utils::ShowPacketInHex(server_decrypted, server_decrypted.size());
 
 			cout << "--------------------------LOG--------------------------" << endl;
 			cout << "NEW_KEY=> " << i << endl;

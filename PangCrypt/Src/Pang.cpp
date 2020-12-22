@@ -18,6 +18,7 @@ typedef unsigned int UInt32;
 // Decrypt pangya client packets
 DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
 {
+	Utils::PrintLog(1, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
 	auto decrypt = ClientCipher::Decrypt(packet, (int)key);
 	*buffout = new unsigned char[decrypt.size()];
@@ -29,6 +30,7 @@ DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned ch
 // Encrypt Pangya client packets, not used: packetid
 DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key, char packetid)
 {
+	Utils::PrintLog(2, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
 	auto encrypt = ClientCipher::Encrypt(packet, (int)key, 0);
 	*buffout = new unsigned char[encrypt.size()];
@@ -40,6 +42,7 @@ DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned ch
 // Decrypt Pangya server packets
 DLLEXPORT int pangya_server_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
 {
+	Utils::PrintLog(3, buffin, key, size);
 	unsigned char* packet_decrypt;
 	auto packet = vector<unsigned char>(buffin, buffin + size);
 	auto decrypt = ServerCipher::Decrypt(packet, (int)key);
@@ -52,6 +55,7 @@ DLLEXPORT int pangya_server_decrypt(unsigned char *buffin, int size, unsigned ch
 // Encrypt Pangya server packets
 DLLEXPORT int pangya_server_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
 {
+	Utils::PrintLog(4, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
 	auto encrypt = ServerCipher::Encrypt(packet, (int)key, 0);
 	*buffout = new unsigned char[encrypt.size()];
@@ -60,18 +64,19 @@ DLLEXPORT int pangya_server_encrypt(unsigned char *buffin, int size, unsigned ch
 	return 1;
 }
 
-DLLEXPORT void pangya_free(char** buffout)
+// This function is used to free allocated buffout
+DLLEXPORT void pangya_free(char **buffout)
 {
 	free(*buffout);
 }
 
-
+//Decrypt build date client
 DLLEXPORT UInt32 pangya_deserialize(UInt32 deserialize)
 {
 	return DeserializeCipher::Decrypt(deserialize);
 }
 
-
+//Encrypt Build date client
 DLLEXPORT UInt32 pangya_encrypt_deserialize(UInt32 deserialize)
 {
 	return DeserializeCipher::Encrypt(deserialize);
