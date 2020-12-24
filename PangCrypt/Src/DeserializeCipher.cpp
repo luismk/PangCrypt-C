@@ -2,9 +2,9 @@
 #include <exception>
 
 //code sent by: Hsreina
-UINT32 DeserializeCipher::Decrypt(UINT32 pangya_build_date)
+uint DeserializeCipher::Decrypt(uint pangya_build_date)
 {
-	UINT32 result = pangya_build_date;
+	uint result = pangya_build_date;
 	UINT8* pval = (UINT8*)&result;
 
 	for (unsigned char i = 0; i < 38; i++)
@@ -22,10 +22,10 @@ UINT32 DeserializeCipher::Decrypt(UINT32 pangya_build_date)
 }
 
 //code sent by: Acrisio SuperSS Dev
-UINT32 DeserializeCipher::Encrypt(UINT32 pangya_build_date)
+uint DeserializeCipher::Encrypt(uint pangya_build_date)
 {
 
-	UINT32 result = pangya_build_date;
+	uint result = pangya_build_date;
 	UINT8* pval = (UINT8*)&result;
 	size_t i, index;
 	for (i = 0, index = 0; i < 38; i++)

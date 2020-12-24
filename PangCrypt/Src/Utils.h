@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <time.h>
+#include <Windows.h>
 using namespace std;
 class Utils
 {
@@ -39,10 +40,11 @@ public:
 	static string ShowPacketInHex(vector<unsigned char> packet_buffer,  int size);
 
 	static void PrintLog(int typelog,unsigned char* packet, unsigned char key, int size);
-private:
-	static unsigned char hexval(unsigned char c);
-	static string hex2ascii(const string& in);
 	static void ConsolePrint(const char* _Format);
 	static string GetDateTime();
+	static void SetColor(int color);
+private:
+	static unsigned char hexval(unsigned char c);
+	static string hex2ascii(const string& in);	
 	static string GetTime();
 };

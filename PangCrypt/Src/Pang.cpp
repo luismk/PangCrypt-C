@@ -1,19 +1,17 @@
 #include <Windows.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include "ClientCipher.h"
 #include "ServerCipher.h"
 #include "DeserializeCipher.h"
 #define DLLEXPORT EXTERN_C __declspec(dllexport)
-typedef unsigned int UInt32;
+typedef unsigned int uint;
 
-//----------------- FINISH WORK 18-12-2020 16:00:00 by LUISMK -----------------------------
+//----------------- UPDATE WORK 24-12-2020 00:00:00 by LUISMK -----------------------------
 //this library is a version created in C++ by LUISMK
 //objective of this was to increase my learning as a programmer
 //this is a remake of PangCrypt-Csharp: https://github.com/pangyatools/PangCrypt
 //create by John Chadwick: https://github.com/jchv and Andreas Nedbal: https://github.com/pixeldesu
 //group discord for pangYa: https://discord.gg/HwDTssf
-//to work with the reina server, you need to change part of the reina src code
-//crypt will only go up to a maximum of 15 keys
 
 // Decrypt pangya client packets
 DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
@@ -71,13 +69,64 @@ DLLEXPORT void pangya_free(char **buffout)
 }
 
 //Decrypt build date client
-DLLEXPORT UInt32 pangya_deserialize(UInt32 deserialize)
+DLLEXPORT uint pangya_deserialize(uint deserialize)
 {
 	return DeserializeCipher::Decrypt(deserialize);
 }
 
 //Encrypt Build date client
-DLLEXPORT UInt32 pangya_encrypt_deserialize(UInt32 deserialize)
+DLLEXPORT uint pangya_encrypt_deserialize(uint deserialize)
 {
 	return DeserializeCipher::Encrypt(deserialize);
+}
+
+
+extern "C" DLLEXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_ATTACH:
+	{
+		AllocConsole();
+	    freopen("CONOUT$", "w", stdout);
+		string tmp;
+		Utils::SetColor(1);
+		Utils::ConsolePrint("=================================================================\n");
+		tmp = "|                PangCrypt.dll for Pangya Emulator              |";
+		tmp += "\n";
+		Utils::ConsolePrint(tmp.c_str());
+		tmp = "|                        PangCrypt-C++                          |";
+		tmp += "\n";
+		Utils::SetColor(6);
+		Utils::ConsolePrint(tmp.c_str());
+		Utils::SetColor(2);
+		tmp = "|                        ";
+		tmp += "VERSION : ";
+		tmp += "20201224";
+		tmp += "                     |\n";
+		Utils::ConsolePrint(tmp.c_str());
+		Utils::SetColor(1);
+		Utils::ConsolePrint("=================================================================\n");
+		Utils::SetColor(0);
+		tmp = "Launched at ";
+		tmp += Utils::GetDateTime();
+		tmp += "\n";
+		Utils::ConsolePrint(tmp.c_str());
+		Utils::ConsolePrint("\n");
+	}
+		break;
+
+	case DLL_PROCESS_DETACH:
+		// detach from process
+		break;
+
+	case DLL_THREAD_ATTACH:
+		// attach to thread
+		break;
+
+	case DLL_THREAD_DETACH:
+		// detach from thread
+		break;
+	}
+	return TRUE; // succesful
 }
