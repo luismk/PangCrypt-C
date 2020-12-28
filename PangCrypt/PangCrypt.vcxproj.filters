@@ -54,10 +54,10 @@
     <ClCompile Include="Src\ServerCipher.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Pang.cpp">
+    <ClCompile Include="Src\DeserializeCipher.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\DeserializeCipher.cpp">
+    <ClCompile Include="Src\Cryptor.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

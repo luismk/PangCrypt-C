@@ -1,12 +1,10 @@
 #include "DeserializeCipher.h"
-#include <exception>
 
 //code sent by: Hsreina
 uint DeserializeCipher::Decrypt(uint pangya_build_date)
 {
 	uint result = pangya_build_date;
 	UINT8* pval = (UINT8*)&result;
-
 	for (unsigned char i = 0; i < 38; i++)
 	{
 		pval[i % 4] ^= CryptoOracle::CryptTableDeserialize[i];
@@ -17,7 +15,7 @@ uint DeserializeCipher::Decrypt(uint pangya_build_date)
 	}
 	else
 	{
-		throw exception("Falied To Deserialize Data !");
+		return pangya_build_date;
 	}
 }
 

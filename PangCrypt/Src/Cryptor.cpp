@@ -1,3 +1,6 @@
+#ifndef CRYPTOR_CPP
+#define CRYPTOR_CPP
+
 #include <Windows.h>
 #include <stdio.h>
 #include "ClientCipher.h"
@@ -130,3 +133,5 @@ extern "C" DLLEXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, 
 	}
 	return TRUE; // succesful
 }
+
+#endif
