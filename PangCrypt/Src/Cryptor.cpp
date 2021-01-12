@@ -1,20 +1,4 @@
-#ifndef CRYPTOR_CPP
-#define CRYPTOR_CPP
-
-#include <Windows.h>
-#include <stdio.h>
-#include "ClientCipher.h"
-#include "ServerCipher.h"
-#include "DeserializeCipher.h"
-#define DLLEXPORT EXTERN_C __declspec(dllexport)
-typedef unsigned int uint;
-
-//----------------- UPDATE WORK 24-12-2020 00:00:00 by LUISMK -----------------------------
-//this library is a version created in C++ by LUISMK
-//objective of this was to increase my learning as a programmer
-//this is a remake of PangCrypt-Csharp: https://github.com/pangyatools/PangCrypt
-//create by John Chadwick: https://github.com/jchv and Andreas Nedbal: https://github.com/pixeldesu
-//group discord for pangYa: https://discord.gg/HwDTssf
+#include "Cryptor.h"
 
 // Decrypt pangya client packets
 DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
@@ -33,6 +17,7 @@ DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned ch
 {
 	Utils::PrintLog(2, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
+	packetid = PacketId(packet);
 	auto encrypt = ClientCipher::Encrypt(packet, (int)key, 0);
 	*buffout = new unsigned char[encrypt.size()];
 	*buffout = Utils::ConvertVectorToChar(encrypt);
@@ -77,14 +62,7 @@ DLLEXPORT uint pangya_deserialize(uint deserialize)
 	return DeserializeCipher::Decrypt(deserialize);
 }
 
-//Encrypt Build date client
-DLLEXPORT uint pangya_encrypt_deserialize(uint deserialize)
-{
-	return DeserializeCipher::Encrypt(deserialize);
-}
-
-
-extern "C" DLLEXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+extern "C" DLLEXPORT BOOL APIENTRY _DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
 	{
@@ -133,5 +111,3 @@ extern "C" DLLEXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, 
 	}
 	return TRUE; // succesful
 }
-
-#endif

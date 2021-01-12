@@ -48,3 +48,17 @@ private:
 	static string hex2ascii(const string& in);	
 	static string GetTime();
 };
+
+char PacketId(vector<unsigned char> packet_buffer)
+{
+	char const hex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+	string returndata = "";
+	for (int i = 0; i < 2; ++i)
+	{
+		const char ch = packet_buffer[i];
+		returndata.append(&hex[(ch & 0xF0) >> 4], 1);
+		returndata.append(&hex[ch & 0xF], 1);
+	}
+	return (char)returndata.c_str();
+}

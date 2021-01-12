@@ -1,11 +1,7 @@
 #include "ClientCipher.h"
 vector<unsigned char> ClientCipher::Decrypt(std::vector<unsigned char> source, int key)
-{
-	auto oracleIndex = (key << 8) + source[0];
-	if (oracleIndex >= CryptoOracle::CryptTable2.size() && key >= 0x10)
-	{
-		oracleIndex = oracleIndex / 0xFF * 2;
-	}
+{	
+	if (key >= 32) throw "Key too large ({%s} >= 0x20)", key;
 
 	if (source.size() < 5)
 	{
@@ -14,7 +10,7 @@ vector<unsigned char> ClientCipher::Decrypt(std::vector<unsigned char> source, i
 
 	auto buffer = static_cast<std::vector<unsigned char>>(source);
 
-	buffer[4] = CryptoOracle::CryptTable2[oracleIndex];
+	buffer[4] = CryptoOracle::CryptTable2[(key << 8) + source[0]];
 
 	for (int i = 8; i < buffer.size(); i++)
 	{
@@ -29,12 +25,11 @@ vector<unsigned char> ClientCipher::Decrypt(std::vector<unsigned char> source, i
 
 vector<unsigned char> ClientCipher::Encrypt(vector<unsigned char> source, int key, int salt)
 {
-	auto oracleIndex = (key << 8) + salt;
-	if (oracleIndex >= CryptoOracle::CryptTable2.size() && key >= 0x10)
-	{
-		oracleIndex = oracleIndex / 0xFF * 2;
-	}
+	if (key >= 32) throw "Key too large ({%s} >= 0x20)", key;
 
+
+	auto oracleIndex = (key << 8) + salt;
+	
 	int size = source.size();
 	auto buffer = vector<unsigned char>(size + 5);
 
@@ -42,7 +37,7 @@ vector<unsigned char> ClientCipher::Encrypt(vector<unsigned char> source, int ke
 	buffer[0] = salt;
 	buffer[1] = static_cast<unsigned char>((pLen >> 0) & 0xFF);
 	buffer[2] = static_cast<unsigned char>((pLen >> 8) & 0xFF);
-	buffer[4] = static_cast<unsigned char>(CryptoOracle::CryptTable2[oracleIndex]);
+	buffer[4] = static_cast<unsigned char>(CryptoOracle::CryptTable1[oracleIndex]);
 
 	Utils::CopyTo(source, 0, buffer, 5, size);
 	size = buffer.size() - 1;

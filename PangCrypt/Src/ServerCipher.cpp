@@ -1,13 +1,9 @@
 #include "ServerCipher.h"
 vector<unsigned char> ServerCipher::Encrypt(vector<unsigned char> source, int key, int salt)
 {
-	
-	auto oracleIndex = (key << 8) + salt;
-	if (oracleIndex >= CryptoOracle::CryptTable2.size() && key >= 0x10)
-	{
-		oracleIndex = oracleIndex / 0xFF * 2;
-	}
+	if (key >= 32) throw "Key too large ({%s} >= 0x20)", key;
 
+	auto oracleIndex = (key << 8) + salt;	
 	auto compressedData = MiniLzo::Compress(source);
 	auto buffer = vector<unsigned char>(compressedData.size() + 8);
 	auto pLen = buffer.size() - 3;
@@ -22,7 +18,7 @@ vector<unsigned char> ServerCipher::Encrypt(vector<unsigned char> source, int ke
 	buffer[0] = salt;
 	buffer[1] = static_cast<unsigned char>((pLen >> 0) & 0xFF);
 	buffer[2] = static_cast<unsigned char>((pLen >> 8) & 0xFF);
-	buffer[3] = static_cast<unsigned char>(CryptoOracle::CryptTable1[oracleIndex] ^ CryptoOracle::CryptTable2[oracleIndex]);
+	buffer[3] = static_cast<unsigned char>(CryptoOracle::CryptTable1[oracleIndex] ^ CryptoOracle::CryptTable1[oracleIndex]);
 	buffer[5] = static_cast<unsigned char>(z);
 	buffer[6] = static_cast<unsigned char>(y);
 	buffer[7] = static_cast<unsigned char>(x);
@@ -40,18 +36,17 @@ vector<unsigned char> ServerCipher::Encrypt(vector<unsigned char> source, int ke
 
 vector<unsigned char> ServerCipher::Decrypt(vector<unsigned char> source, int key)
 {
-	auto oracleIndex = (key << 8) + source[0];
-	if (oracleIndex >= CryptoOracle::CryptTable2.size() && key >= 0x10)
-	{
-		oracleIndex = oracleIndex / 0xFF * 2;
-	}
+	if (key >= 32) throw "Key too large ({%s} >= 0x20)", key;
 
+
+	auto oracleIndex = (key << 8) + source[0];
+	
 	if (source.size() < 5)
 	{
 		throw "Packet too small ({source.size()} < 5";
 	}
 
-	auto oracleByte = CryptoOracle::CryptTable2[oracleIndex];
+	auto oracleByte = CryptoOracle::CryptTable1[oracleIndex];
 	auto buffer = source;
 
 	buffer[7] ^= oracleByte;
