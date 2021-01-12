@@ -62,7 +62,7 @@ DLLEXPORT uint pangya_deserialize(uint deserialize)
 	return DeserializeCipher::Decrypt(deserialize);
 }
 
-extern "C" DLLEXPORT BOOL APIENTRY _DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+extern "C" DLLEXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
 	{
