@@ -160,6 +160,7 @@ void Utils::SetColor(int color)
 	}
 }
 
+
 void Utils::ConsolePrint(const char* _Format)
 {
 	string Format = _Format;

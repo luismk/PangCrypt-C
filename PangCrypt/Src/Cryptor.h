@@ -12,9 +12,54 @@
 
 #include <Windows.h>
 #include <stdio.h>
-#include "ClientCipher.h"
-#include "ServerCipher.h"
-#include "DeserializeCipher.h"
+#include "Pang.h"
 #define DLLEXPORT EXTERN_C __declspec(dllexport)
 typedef unsigned int uint;
+
+#pragma region Simplication 
+void pangya_client_decrypt(unsigned char* buffin, int size, unsigned int key, unsigned char*& dataout, int& newSize)
+{
+	auto packet = vector<unsigned char>(buffin, buffin + size);
+	Pang::_pangya_client_decrypt(packet, (int)key);
+	dataout = new unsigned char[packet.size()];
+	dataout = Utils::ConvertVectorToChar(packet);
+	newSize = packet.size();
+}
+
+// Encrypt Pangya client packets
+void pangya_client_encrypt(unsigned char* buffin, int size, unsigned int key, int salt, unsigned char*& dataout, int& newSize)
+{
+	auto packet = vector<unsigned char>(buffin, buffin + size);
+	Pang::_pangya_client_encrypt(packet, (int)key, salt);
+	dataout = new unsigned char[packet.size()];
+	dataout = Utils::ConvertVectorToChar(packet);
+	newSize = packet.size();
+}
+
+// Decrypt Pangya server packets
+void pangya_server_decrypt(unsigned char* buffin, int size, unsigned int key, unsigned char*& dataout, int& newSize)
+{
+	auto packet = vector<unsigned char>(buffin, buffin + size);
+	Pang::_pangya_server_decrypt(packet, (int)key);
+	dataout = new unsigned char[packet.size()];
+	dataout = Utils::ConvertVectorToChar(packet);
+	newSize = packet.size();
+}
+
+// Encrypt Pangya server packets
+void pangya_server_encrypt(unsigned char* buffin, int size, unsigned int key, int salt, unsigned char*& dataout, int& newSize)
+{
+	auto packet = vector<unsigned char>(buffin, buffin + size);
+	Pang::_pangya_server_encrypt(packet, (int)key, salt);
+	dataout = new unsigned char[packet.size()];
+	dataout = Utils::ConvertVectorToChar(packet);
+	newSize = packet.size();
+}
+
+void pangya_deserialize(uint& deserialize)
+{
+	Pang::_pangya_deserialize_decrypt(deserialize);
+}
+#pragma endregion
+
 #endif

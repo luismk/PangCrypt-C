@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\Out\x86</OutDir>
+    <OutDir>..\Out\x86\bin\bin</OutDir>
     <TargetName>Pang</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,21 +157,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Src\CryptoOracle.h" />
-    <ClInclude Include="Src\ClientCipher.h" />
     <ClInclude Include="Src\Cryptor.h" />
-    <ClInclude Include="Src\DeserializeCipher.h" />
     <ClInclude Include="Src\MiniLzo.h" />
-    <ClInclude Include="Src\ServerCipher.h" />
+    <ClInclude Include="Src\Pang.h" />
     <ClInclude Include="Src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\DeserializeCipher.cpp" />
     <ClCompile Include="Src\MiniLzo.cpp" />
     <ClCompile Include="Src\Cryptor.cpp" />
-    <ClCompile Include="Src\ServerCipher.cpp" />
-    <ClCompile Include="Src\ClientCipher.cpp" />
-    <ClCompile Include="Src\CryptoOracle.cpp" />
+    <ClCompile Include="Src\Pang.cpp" />
     <ClCompile Include="Src\Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

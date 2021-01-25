@@ -1,57 +1,56 @@
 #include "Cryptor.h"
 
 // Decrypt pangya client packets
-DLLEXPORT int pangya_client_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
+DLLEXPORT int pangya_client_decrypt(unsigned char* buffin, int size, unsigned char** buffout, int* buffoutSize, unsigned char key)
 {
 	Utils::PrintLog(1, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
-	auto decrypt = ClientCipher::Decrypt(packet, (int)key);
-	*buffout = new unsigned char[decrypt.size()];
-	*buffout = Utils::ConvertVectorToChar(decrypt);
-	*buffoutSize = decrypt.size();
+	Pang::_pangya_client_decrypt(packet, (int)key);
+	*buffout = new unsigned char[packet.size()];
+	*buffout = Utils::ConvertVectorToChar(packet);
+	*buffoutSize = packet.size();
 	return 1;
 }
 
 // Encrypt Pangya client packets, not used: packetid
-DLLEXPORT int pangya_client_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key, char packetid)
+DLLEXPORT int pangya_client_encrypt(unsigned char* buffin, int size, unsigned char** buffout, int* buffoutSize, unsigned char key, char packetid)
 {
 	Utils::PrintLog(2, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
-	packetid = PacketId(packet);
-	auto encrypt = ClientCipher::Encrypt(packet, (int)key, 0);
-	*buffout = new unsigned char[encrypt.size()];
-	*buffout = Utils::ConvertVectorToChar(encrypt);
-	*buffoutSize = encrypt.size();
+	Pang::_pangya_client_encrypt(packet, (int)key, 0);
+	*buffout = new unsigned char[packet.size()];
+	*buffout = Utils::ConvertVectorToChar(packet);
+	*buffoutSize = packet.size();
 	return 1;
 }
 
 // Decrypt Pangya server packets
-DLLEXPORT int pangya_server_decrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
+DLLEXPORT int pangya_server_decrypt(unsigned char* buffin, int size, unsigned char** buffout, int* buffoutSize, unsigned char key)
 {
 	Utils::PrintLog(3, buffin, key, size);
 	unsigned char* packet_decrypt;
 	auto packet = vector<unsigned char>(buffin, buffin + size);
-	auto decrypt = ServerCipher::Decrypt(packet, (int)key);
-	*buffout = new unsigned char[decrypt.size()];
-	*buffout = Utils::ConvertVectorToChar(decrypt);
-	*buffoutSize = decrypt.size();
+	Pang::_pangya_server_decrypt(packet, (int)key);
+	*buffout = new unsigned char[packet.size()];
+	*buffout = Utils::ConvertVectorToChar(packet);
+	*buffoutSize = packet.size();
 	return 1;
 }
 
 // Encrypt Pangya server packets
-DLLEXPORT int pangya_server_encrypt(unsigned char *buffin, int size, unsigned char **buffout, int *buffoutSize, unsigned char key)
+DLLEXPORT int pangya_server_encrypt(unsigned char* buffin, int size, unsigned char** buffout, int* buffoutSize, unsigned char key)
 {
 	Utils::PrintLog(4, buffin, key, size);
 	auto packet = vector<unsigned char>(buffin, buffin + size);
-	auto encrypt = ServerCipher::Encrypt(packet, (int)key, 0);
-	*buffout = new unsigned char[encrypt.size()];
-	*buffout = Utils::ConvertVectorToChar(encrypt);
-	*buffoutSize = encrypt.size();
+	Pang::_pangya_server_encrypt(packet, (int)key, 0);
+	*buffout = new unsigned char[packet.size()];
+	*buffout = Utils::ConvertVectorToChar(packet);
+	*buffoutSize = packet.size();
 	return 1;
 }
 
 // This function is used to free allocated buffout
-DLLEXPORT void pangya_free(char **buffout)
+DLLEXPORT void pangya_free(char** buffout)
 {
 	free(*buffout);
 }
@@ -59,7 +58,8 @@ DLLEXPORT void pangya_free(char **buffout)
 //Decrypt build date client
 DLLEXPORT uint pangya_deserialize(uint deserialize)
 {
-	return DeserializeCipher::Decrypt(deserialize);
+	Pang::_pangya_deserialize_decrypt(deserialize);
+	return deserialize;
 }
 
 extern "C" DLLEXPORT BOOL APIENTRY _DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -69,7 +69,7 @@ extern "C" DLLEXPORT BOOL APIENTRY _DllMain(HINSTANCE hinstDLL, DWORD fdwReason,
 	case DLL_PROCESS_ATTACH:
 	{
 		AllocConsole();
-	    freopen("CONOUT$", "w", stdout);
+		freopen("CONOUT$", "w", stdout);
 		string tmp;
 		Utils::SetColor(1);
 		Utils::ConsolePrint("=================================================================\n");
@@ -95,7 +95,7 @@ extern "C" DLLEXPORT BOOL APIENTRY _DllMain(HINSTANCE hinstDLL, DWORD fdwReason,
 		Utils::ConsolePrint(tmp.c_str());
 		Utils::ConsolePrint("\n");
 	}
-		break;
+	break;
 
 	case DLL_PROCESS_DETACH:
 		// detach from process
